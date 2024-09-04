@@ -29,4 +29,10 @@ class Pokemon extends Model implements TranslatableContract
     {
         return $this->hasMany(PokemonVariety::class);
     }
+
+    public function defaultVariety()
+    {
+        return $this->hasOne(PokemonVariety::class)
+            ->where('is_default', true);
+    }
 }
