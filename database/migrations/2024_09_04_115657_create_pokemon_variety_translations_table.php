@@ -12,8 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pokemon_variety_translations', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
+            $table->ForeignIdFor(App\Models\PokemonVariety::class)->constrained()->onDelete('cascade');
+            $table->string('locale')->index();
+            $table->string('name')->nullable();
+            $table->string('form_name')->nullable();
+            $table->string('description')->nullable();
             $table->timestamps();
+
+            $table->unique(['pokemon_variety_id', 'locale']);
         });
     }
 
