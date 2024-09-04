@@ -19,4 +19,9 @@ class PokemonVariety extends Model implements TranslatableContract
     protected $casts = [
         'is_default' => 'boolean',
     ];
+
+    public function pokemon()
+    {
+        return $this->belongsTo(Pokemon::class);
+    }
 }
