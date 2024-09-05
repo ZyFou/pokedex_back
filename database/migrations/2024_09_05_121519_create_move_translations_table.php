@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('moves', function (Blueprint $table) {
+        Schema::create('move_translations', function (Blueprint $table) {
             $table->id();
-            $table->integer('accuracy')->nullable();
-            $table->bigIncrements('move_damage_class_id');
-            $table->integer('power')->nullable();
-            $table->integer('pp');
-            $table->integer('priority');
-            $table->bigIncrements('type_id');
+            $table->bigIncrements('move_id');
+            $table->string('locale');
+            $table->string('name');
+            $table->string('description')->nullable();
+
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('moves');
+        Schema::dropIfExists('move_translations');
     }
 };

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->bigIncrements('move_damage_class_id');
             $table->string('locale');
             $table->string('name');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }
