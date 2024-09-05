@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('item_translations', function (Blueprint $table) {
             $table->id();
-            $table->bigIncrements('item_id');
+            $table->bigInteger('item_id');
             $table->string('locale');
             $table->string('name');
             $table->string('description')->nullable();

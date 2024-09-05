@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('game_version_translations', function (Blueprint $table) {
             $table->id();
-            $table->bigIncrements('game_version_id');
+            $table->bigInteger('game_version_id');
             $table->string('locale');
             $table->string('name');
             $table->timestamps();

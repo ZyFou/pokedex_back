@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('type_interactions', function (Blueprint $table) {
             $table->id();
-            $table->bigIncrements('from_type_id');
-            $table->bigIncrements('tp_type_id');
-            $table->bigIncrements('type_interaction_state_id');
+            $table->bigInteger('from_type_id');
+            $table->bigInteger('tp_type_id');
+            $table->bigInteger('type_interaction_state_id');
             $table->timestamps();
         });
     }

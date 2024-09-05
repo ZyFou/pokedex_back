@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('moves', function (Blueprint $table) {
             $table->id();
             $table->integer('accuracy')->nullable();
-            $table->bigIncrements('move_damage_class_id');
+            $table->bigInteger('move_damage_class_id');
             $table->integer('power')->nullable();
             $table->integer('pp');
             $table->integer('priority');
-            $table->bigIncrements('type_id');
+            $table->bigInteger('type_id');
             $table->timestamps();
         });
     }
