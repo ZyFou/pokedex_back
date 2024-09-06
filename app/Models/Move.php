@@ -40,7 +40,7 @@ class Move extends Model
         return $this->belongsTo(Type::class);
     }
 
-    public function translations()
+    public function translation()
     {
         return $this->hasMany(MoveTranslation::class);
     }

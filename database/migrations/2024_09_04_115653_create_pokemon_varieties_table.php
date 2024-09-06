@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('pokemon_varieties', function (Blueprint $table) {
-            $table->id();
+            $table->bigIncrements('id');
             $table->ForeignIdFor(App\Models\Pokemon::class)->constrained()->onDelete('cascade');
             $table->boolean('is_default')->default(false);
             $table->text('cry_url')->nullable();

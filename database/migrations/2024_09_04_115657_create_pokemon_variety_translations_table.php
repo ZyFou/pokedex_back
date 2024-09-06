@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('form_name')->nullable();
             $table->string('description')->nullable();
             $table->timestamps();
-
             $table->unique(['pokemon_variety_id', 'locale']);
         });
     }

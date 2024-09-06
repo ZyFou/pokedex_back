@@ -18,6 +18,6 @@ class EvolutionTrigger extends Model
 
     public function translations()
     {
-        return $this->hasMany(EvolutionTriggerTranslations::class);
+        return $this->hasMany(EvolutionTriggerTranslation::class);
     }
 }

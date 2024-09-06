@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('game_versions', function (Blueprint $table) {
             $table->id();
-            $table->string('generic_game');
+            $table->string('generic_name');
             $table->integer('generation');
             $table->timestamps();
         });

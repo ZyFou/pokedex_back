@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('locale');
             $table->string('name');
             $table->string('description')->nullable();
-            $table->text('effect');
+            $table->text('effect')->nullable();
             $table->timestamps();
         });
     }
