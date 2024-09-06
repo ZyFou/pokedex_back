@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('type_translations', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('type_id');
+            $table->foreignIdFor(App\Models\Type::class)->constrained()->onDelete('cascade');
             $table->string('locale');
             $table->string('name');
             $table->timestamps();
