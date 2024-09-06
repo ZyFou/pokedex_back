@@ -8,4 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 class ItemTranslation extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'item_id',
+        'locale',
+        'name',
+        'description',
+    ];
+
+    protected $casts = [
+        'item_id' => 'integer',
+    ];
+
+    public function item()
+    {
+        return $this->belongsTo(Item::class);
+    }
 }

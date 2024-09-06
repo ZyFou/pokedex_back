@@ -9,5 +9,20 @@ class PokemonVarietyTranslation extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description', 'form_name'];
+    protected $fillable = [
+        'pokemon_variety_id',
+        'locale',
+        'name',
+        'form_name',
+        'description'
+    ];
+
+    protected $casts = [
+        'pokemon_variety_id' => 'integer',
+    ];
+
+    public function pokemonVariety()
+    {
+        return $this->belongsTo(PokemonVariety::class);
+    }
 }
