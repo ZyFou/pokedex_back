@@ -41,14 +41,14 @@ class PokemonSeeder extends Seeder
      */
     public function run(): void
     {
-        // $this->seedTypes();
-        // $this->seedMoveDamageClasses();
-        // $this->seedMoves();
-        // $this->seedMoveLearnMethods();
-        // $this->seedGameVersions();
-        // $this->seedAbilities();
-        // $this->seedEvolutionTrigger();
-        // $this->seedItems();
+        $this->seedTypes();
+        $this->seedMoveDamageClasses();
+        $this->seedMoves();
+        $this->seedMoveLearnMethods();
+        $this->seedGameVersions();
+        $this->seedAbilities();
+        $this->seedEvolutionTrigger();
+        $this->seedItems();
         $this->seedPokemon();
         $this->seedEvolutions();
     }
@@ -727,7 +727,7 @@ class PokemonSeeder extends Seeder
                                             'min_affection' => $evolutionDetails->min_affection ?? null,
                                             'min_happiness' => $evolutionDetails->min_happiness ?? null,
                                             'min_level' => $evolutionDetails->min_level ?? null,
-                                            'needs_overworld_rain' => $evolutionDetails->needs_overworld_rain ?? null,
+                                            'need_overworld_rain' => $evolutionDetails->need_overworld_rain ?? null,
                                             'party_species_id' => $this->safelyGetId(Pokemon::class, 'name', $evolutionDetails->party_species->name ?? null),
                                             'party_type_id' => $this->safelyGetId(\App\Models\Type::class, 'name', $evolutionDetails->party_type->name ?? null),
                                             'relative_physical_stats' => $evolutionDetails->relative_physical_stats ?? null,
