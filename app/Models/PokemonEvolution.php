@@ -15,8 +15,8 @@ class PokemonEvolution extends Model
         'gender',
         'held_item_id',
         'item_id',
-        'know_move_id',
-        'know_move_type_id',
+        'known_move_id',
+        'known_move_type_id',
         'location',
         'min_affection',
         'min_happiness',
@@ -59,12 +59,12 @@ class PokemonEvolution extends Model
 
     public function knowMove()
     {
-        return $this->belongsTo(Move::class, 'know_move_id');
+        return $this->belongsTo(Move::class, 'known_move_id');
     }
 
     public function knowMoveType()
     {
-        return $this->belongsTo(Type::class, 'know_move_type_id');
+        return $this->belongsTo(Type::class, 'known_move_type_id');
     }
 
     public function partySpecies()

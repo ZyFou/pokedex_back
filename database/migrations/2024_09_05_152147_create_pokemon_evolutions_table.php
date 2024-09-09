@@ -18,8 +18,8 @@ return new class extends Migration
             $table->boolean('gender')->nullable();
             $table->foreignIdFor(App\Models\Item::class, 'held_item_id')->nullable();
             $table->foreignIdFor(App\Models\Item::class, 'item_id')->nullable();
-            $table->foreignIdFor(App\Models\Move::class, 'know_move_id')->nullable();
-            $table->foreignIdFor(App\Models\Type::class, 'know_move_type_id')->nullable();
+            $table->foreignIdFor(App\Models\Move::class, 'known_move_id')->nullable();
+            $table->foreignIdFor(App\Models\Type::class, 'known_move_type_id')->nullable();
             $table->string('location')->nullable();
             $table->integer('min_affection')->nullable();
             $table->integer('min_happiness')->nullable();
