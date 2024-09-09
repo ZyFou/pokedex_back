@@ -41,14 +41,14 @@ class PokemonSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->seedTypes();
-        $this->seedMoveDamageClasses();
-        $this->seedMoves();
-        $this->seedMoveLearnMethods();
-        $this->seedGameVersions();
-        $this->seedAbilities();
-        $this->seedEvolutionTrigger();
-        $this->seedItems();
+        // $this->seedTypes();
+        // $this->seedMoveDamageClasses();
+        // $this->seedMoves();
+        // $this->seedMoveLearnMethods();
+        // $this->seedGameVersions();
+        // $this->seedAbilities();
+        // $this->seedEvolutionTrigger();
+        // $this->seedItems();
         $this->seedPokemon();
         $this->seedEvolutions();
     }
