@@ -5,8 +5,9 @@ namespace App\Models;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 
-class Move extends Model
+class Move extends Model implements TranslatableContract
 {
     use HasFactory, Translatable;
 
@@ -38,10 +39,5 @@ class Move extends Model
     public function type()
     {
         return $this->belongsTo(Type::class);
-    }
-
-    public function translation()
-    {
-        return $this->hasMany(MoveTranslation::class);
     }
 }

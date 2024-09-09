@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('move_learn_method_translations', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('move_learn_method_id');
+            $table->foreignIdFor(App\Models\MoveLearnMethod::class, 'move_learn_method_id')->constrained()->onDelete('cascade');
             $table->string('locale');
             $table->string('name');
             $table->string('description')->nullable();

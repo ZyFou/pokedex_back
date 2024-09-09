@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('move_damage_class_translations', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('move_damage_class_id');
+            $table->foreignIdFor(App\Models\MoveDamageClass::class, 'move_damage_class_id')->constrained()->onDelete('cascade');
             $table->string('locale');
             $table->string('name');
             $table->string('description')->nullable();

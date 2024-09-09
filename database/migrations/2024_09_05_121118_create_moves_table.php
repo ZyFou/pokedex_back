@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('moves', function (Blueprint $table) {
             $table->id();
             $table->integer('accuracy')->nullable();
-            $table->bigInteger('move_damage_class_id');
+            $table->foreignIdFor(App\Models\MoveDamageClass::class, 'move_damage_class_id')->constrained('move_damage_classes')->onDelete('cascade'); // Ajout de la clé étrangère
             $table->integer('power')->nullable();
             $table->integer('pp');
             $table->integer('priority');
-            $table->bigInteger('type_id');
+            $table->foreignIdFor(App\Models\Type::class, 'type_id')->constrained('types')->onDelete('cascade'); // Ajout de la clé étrangère
             $table->timestamps();
         });
     }

@@ -5,8 +5,9 @@ namespace App\Models;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 
-class GameVersion extends Model
+class GameVersion extends Model implements TranslatableContract
 {
     use HasFactory, Translatable;
 
@@ -16,9 +17,4 @@ class GameVersion extends Model
         'generic_name',
         'generation',
     ];
-
-    public function translations()
-    {
-        return $this->hasMany(GameVersionTranslation::class);
-    }
 }

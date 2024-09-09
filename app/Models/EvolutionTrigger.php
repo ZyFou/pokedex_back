@@ -5,8 +5,9 @@ namespace App\Models;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 
-class EvolutionTrigger extends Model
+class EvolutionTrigger extends Model implements TranslatableContract
 {
     use HasFactory, Translatable;
 
@@ -15,9 +16,4 @@ class EvolutionTrigger extends Model
     protected $fillable = [
         'slug',
     ];
-
-    public function translations()
-    {
-        return $this->hasMany(EvolutionTriggerTranslation::class);
-    }
 }

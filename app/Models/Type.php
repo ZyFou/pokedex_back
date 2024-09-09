@@ -5,8 +5,9 @@ namespace App\Models;
 use Astrotomic\Translatable\Translatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 
-class Type extends Model
+class Type extends Model implements TranslatableContract
 {
     use HasFactory, Translatable;
 
@@ -15,11 +16,6 @@ class Type extends Model
     protected $fillable = [
         'sprite_url'
     ];
-
-    public function translations()
-    {
-        return $this->hasMany(TypeTranslation::class);
-    }
 
     public function interactionsFrom()
     {
