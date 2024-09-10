@@ -12,4 +12,10 @@ Route::group(['prefix' => 'pokemon'], function () {
     Route::get('/', [PokemonController::class, 'index']);
     Route::get('/{pokemon}', [PokemonController::class, 'show']);
     Route::get('/{pokemon}/varieties', [PokemonController::class, 'showVarieties']);
+
+    Route::get('/{pokemon}/stats', [PokemonController::class, 'stats']);
+    // Route::get('/{pokemon}/moves', [PokemonController::class, 'showMoves']);
+
+
+    // Route::get('/{pokemon}/evolutions', [PokemonController::class, 'showEvolutions']);
 });

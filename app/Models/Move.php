@@ -31,13 +31,13 @@ class Move extends Model implements TranslatableContract
         'type_id' => 'integer',
     ];
 
-    public function moveDamageClass()
+    public function damageClass()
     {
-        return $this->belongsTo(MoveDamageClass::class);
+        return $this->belongsTo(MoveDamageClass::class, 'move_damage_class_id');
     }
 
     public function type()
     {
-        return $this->belongsTo(Type::class);
+        return $this->belongsTo(Type::class, 'type_id');
     }
 }
