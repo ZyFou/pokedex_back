@@ -10,7 +10,7 @@ class PokemonEvolution extends Model
     use HasFactory;
 
     protected $fillable = [
-        'pokemon_veriety_id',
+        'pokemon_variety_id',
         'evolves_to_id',
         'gender',
         'held_item_id',
@@ -39,7 +39,7 @@ class PokemonEvolution extends Model
 
     public function pokemonVariety()
     {
-        return $this->belongsTo(PokemonVariety::class, 'pokemon_veriety_id');
+        return $this->belongsTo(PokemonVariety::class, 'pokemon_variety_id');
     }
 
     public function evolvesTo()

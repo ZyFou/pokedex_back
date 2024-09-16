@@ -13,8 +13,10 @@ class GameVersion extends Model implements TranslatableContract
 
     public $translatedAttributes = ['name'];
 
-    protected $fillable = [
-        'generic_name',
-        'generation',
-    ];
+    protected $fillable = ['generic_name', 'generation'];
+
+    public function pokemons()
+    {
+        return $this->hasMany(Pokemon::class);
+    }
 }

@@ -13,7 +13,12 @@ class Pokemon extends Model implements TranslatableContract
 
     public $translatedAttributes = ['name', 'category'];
 
-    protected $fillable = ['has_gender_differences', 'is_baby', 'is_legendary', 'is_mythical'];
+    protected $fillable = [
+        'has_gender_differences',
+        'is_baby',
+        'is_legendary',
+        'is_mythical'
+    ];
 
     protected $casts = [
         'has_gender_differences' => 'boolean',
@@ -36,5 +41,34 @@ class Pokemon extends Model implements TranslatableContract
     public function catchByUsers()
     {
         return $this->belongsToMany(User::class);
+    }
+
+    public function evolutions()
+    {
+        return $this->hasManyThrough(
+            PokemonEvolution::class,
+            PokemonVariety::class,
+            'pokemon_id', // Clé étrangère dans PokemonVariety
+            'pokemon_variety_id', // Clé étrangère dans PokemonEvolution
+            'id', // Clé primaire dans Pokemon
+            'id' // Clé primaire dans PokemonVariety
+        );
+    }
+
+    public function evolvesToThis()
+    {
+        return $this->hasManyThrough(
+            PokemonEvolution::class,
+            PokemonVariety::class,
+            'evolves_to_id', // Clé étrangère dans PokemonEvolution pour la variété cible
+            'id',            // Clé primaire dans PokemonVariety
+            'id',            // Clé primaire dans Pokemon
+            'pokemon_id'     // Clé étrangère dans PokemonVariety
+        );
+    }
+
+    public function generation()
+    {
+        return $this->belongsTo(GameVersion::class);
     }
 }

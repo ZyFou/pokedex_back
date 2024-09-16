@@ -38,35 +38,39 @@ class PokemonController extends Controller
             ])
             ->first();
 
-        if ($stats) {
-            return response()->json($stats);
-        }
-
-        return response()->json(['message' => 'No stats available for this Pokémon'], 404);
+        return response()->json($stats);
     }
 
-    // public function showMoves(PokemonVariety $pokemonVariety)
-    // {
-    //     $moves = $pokemonVariety->learnMoves()->with(['type', 'damageClass'])->get();
 
-    //     return response()->json([
-    //         'moves' => $moves
-    //     ]);
-    // }
+    public function evolutions(Pokemon $pokemon)
+    {
+        // Charger les évolutions possibles depuis ce Pokémon
+        $evolutions = $pokemon->evolutions()->with([
+            'evolvesTo.translations',
+            'heldItem.translations',
+            'item.translations',
+            'knowMove.translations',
+            'knowMoveType.translations',
+            'partySpecies.translations',
+            'partyType.translations',
+            'tradeSpecies.translations',
+            'evolutionTrigger.translations'
+        ])->get();
 
-    // public function showEvolutions(PokemonVariety $pokemonVariety)
-    // {
-    //     // Récupère les évolutions depuis la table pokemon_evolutions
-    //     $evolutions = $pokemonVariety->evolutions()->with([
-    //         'toVariety',
-    //         'item',
-    //         'move',
-    //         'moveType',
-    //         'evolutionTrigger'
-    //     ])->get();
 
-    //     return response()->json([
-    //         'evolutions' => $evolutions
-    //     ]);
-    // }
+        if ($evolutions->isEmpty()) {
+            return response()->json(
+                [
+                    'pokemon' => $pokemon->name,
+                    'evolutions' => [], // Retourne un tableau vide pour les évolutions
+                    'message' => 'Aucune évolution trouvée'
+                ]
+            );
+        } else {
+            return response()->json([
+                'pokemon' => $pokemon->name,
+                'evolutions' => $evolutions
+            ]);
+        }
+    }
 }
