@@ -16,9 +16,9 @@ class MoveController extends Controller
     public function index()
     {
         // Récupère tous les types avec leurs IDs et sprite_url
-        $types = Move::select()->get();
+        $moves = Move::select()->get();
 
-        return response()->json($types);
+        return response()->json($moves);
     }
 
     public function infos($MoveId)
@@ -41,7 +41,7 @@ class MoveController extends Controller
 
         return response()->json([
             'name' => $moveName,
-            'type_id' => $MoveId,
+            'move_id' => $MoveId,
             'infos' => $infos,
         ]);
     }
