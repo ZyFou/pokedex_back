@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Pokemon;
 use App\Models\PokemonVariety;
+use App\Models\PokemonLearnMove;
+use Illuminate\Support\Facades\DB;
+
 
 use Illuminate\Http\Request;
 
@@ -75,5 +78,25 @@ class PokemonController extends Controller
                 'evolutions' => $evolutions
             ]);
         }
+    }
+
+    public function Moves(Pokemon $pokemon)
+    {
+        // Trouver le type par son ID
+        $moves = PokemonLearnMove::find($pokemon);
+
+        if (!$moves) {
+            return response()->json(['error' => 'Type not found'], 404);
+        }
+
+        $moves = DB::table('pokemon_learn_moves')
+            ->where('pokemon_variety_id', $pokemon['id'])
+            ->where('game_version_id', 9)
+            ->get();
+
+        return response()->json([
+            'type_id' => $pokemon,
+            'moves' => $moves
+        ]);
     }
 }

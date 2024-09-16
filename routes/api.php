@@ -17,6 +17,8 @@ Route::group(['prefix' => 'pokemon'], function () {
     Route::get('/{pokemon}/varieties', [PokemonController::class, 'showVarieties']);
 
     Route::get('/{pokemon}/stats', [PokemonController::class, 'stats']);
+    Route::get('/{pokemon}/moves', [PokemonController::class, 'Moves']);
+
 
     Route::get('/{pokemon}/evolution', [PokemonController::class, 'evolutions']);
 });
@@ -25,18 +27,15 @@ Route::group(['prefix' => 'pokemon'], function () {
 Route::group(['prefix' => 'type'], function () {
 
     Route::get('/', [TypeController::class, 'index']);
-
     Route::get(
         '{typeId}/infos',
         [TypeController::class, 'infos']
     );
 
-    // Route pour obtenir les faiblesses d'un type spécifique
     Route::get(
         '{typeId}/weakness',
         [TypeController::class, 'weaknesses']
     );
-
     Route::get(
         '{typeId}/resistance',
         [TypeController::class, 'resistance']
