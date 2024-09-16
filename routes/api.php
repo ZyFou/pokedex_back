@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MoveController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PokemonController;
@@ -19,13 +20,11 @@ Route::group(['prefix' => 'pokemon'], function () {
     Route::get('/{pokemon}/stats', [PokemonController::class, 'stats']);
     Route::get('/{pokemon}/moves', [PokemonController::class, 'Moves']);
 
-
     Route::get('/{pokemon}/evolution', [PokemonController::class, 'evolutions']);
 });
 
 
 Route::group(['prefix' => 'type'], function () {
-
     Route::get('/', [TypeController::class, 'index']);
     Route::get(
         '{typeId}/infos',
@@ -39,5 +38,13 @@ Route::group(['prefix' => 'type'], function () {
     Route::get(
         '{typeId}/resistance',
         [TypeController::class, 'resistance']
+    );
+});
+
+Route::group(['prefix' => 'move'], function () {
+    Route::get('/', [MoveController::class, 'index']);
+    Route::get(
+        '{moveId}/infos',
+        [MoveController::class, 'infos']
     );
 });
