@@ -38,7 +38,10 @@ class PokemonController extends Controller
             ])
             ->first();
 
-        return response()->json($stats);
+        return response()->json([
+            'pokemon' => $pokemon->name,
+            'stats' => $stats
+        ]);
     }
 
 

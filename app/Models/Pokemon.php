@@ -48,22 +48,10 @@ class Pokemon extends Model implements TranslatableContract
         return $this->hasManyThrough(
             PokemonEvolution::class,
             PokemonVariety::class,
-            'pokemon_id', // Clé étrangère dans PokemonVariety
-            'pokemon_variety_id', // Clé étrangère dans PokemonEvolution
-            'id', // Clé primaire dans Pokemon
-            'id' // Clé primaire dans PokemonVariety
-        );
-    }
-
-    public function evolvesToThis()
-    {
-        return $this->hasManyThrough(
-            PokemonEvolution::class,
-            PokemonVariety::class,
-            'evolves_to_id', // Clé étrangère dans PokemonEvolution pour la variété cible
-            'id',            // Clé primaire dans PokemonVariety
-            'id',            // Clé primaire dans Pokemon
-            'pokemon_id'     // Clé étrangère dans PokemonVariety
+            'pokemon_id',
+            'pokemon_variety_id',
+            'id',
+            'id'
         );
     }
 
