@@ -1,12 +1,12 @@
 <?php
 
+use App\Http\Controllers\AbilityController;
 use App\Http\Controllers\MoveController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PokemonController;
 use App\Http\Controllers\TypeController;
-
-
+use App\Models\Ability;
 
 Route::get('/user', action: function (Request $request) {
     return $request->user();
@@ -46,5 +46,13 @@ Route::group(['prefix' => 'move'], function () {
     Route::get(
         '{moveId}/infos',
         [MoveController::class, 'infos']
+    );
+});
+
+Route::group(['prefix' => 'ability'], function () {
+    Route::get('/', [AbilityController::class, 'index']);
+    Route::get(
+        '{abilityId}/infos',
+        [AbilityController::class, 'infos']
     );
 });
