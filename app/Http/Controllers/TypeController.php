@@ -43,7 +43,12 @@ class TypeController extends Controller
             ->where('id', '=', $typeId)
             ->get();
 
+        $name = DB::table('type_translations')
+            ->where('type_id', '=', $typeId)
+            ->get();
+
         return response()->json([
+            'name' => $name,
             'type_id' => $typeId,
             'infos' => $infos
         ]);

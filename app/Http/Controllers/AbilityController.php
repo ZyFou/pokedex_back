@@ -33,7 +33,6 @@ class AbilityController extends Controller
             ->where('ability_id', $AbilityId)
             ->get();
 
-
         return response()->json([
             'name' => $moveName,
             'ability_id' => $AbilityId,
