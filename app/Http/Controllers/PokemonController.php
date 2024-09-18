@@ -14,7 +14,7 @@ class PokemonController extends Controller
 {
     public function index()
     {
-        return Pokemon::with(['defaultVariety', 'defaultVariety.sprites'])
+        return Pokemon::with(['defaultVariety', 'defaultVariety.sprites', 'defaultVariety.types'])
             ->paginate(20);
     }
 
@@ -91,11 +91,11 @@ class PokemonController extends Controller
 
         $moves = DB::table('pokemon_learn_moves')
             ->where('pokemon_variety_id', $pokemon['id'])
-            ->where('game_version_id', 9)
+            // ->where('game_version_id', 8)
             ->get();
 
         return response()->json([
-            'type_id' => $pokemon,
+            'informations' => $pokemon,
             'moves' => $moves
         ]);
     }
