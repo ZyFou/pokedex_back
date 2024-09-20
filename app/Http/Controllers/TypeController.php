@@ -17,7 +17,7 @@ class TypeController extends Controller
     public function index()
     {
         // Récupère tous les types avec leurs IDs et sprite_url
-        $types = Type::select('id', 'sprite_url')->get();
+        $types = Type::select('id', 'sprite_url', 'color', 'icon', 'icon_dark')->get();
 
         return response()->json($types);
     }
