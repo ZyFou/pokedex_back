@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pokemon;
 use App\Models\PokemonVariety;
 use App\Models\PokemonLearnMove;
+use App\Models\PokemonEvolution;
 use Illuminate\Support\Facades\DB;
 
 
@@ -68,7 +69,7 @@ class PokemonController extends Controller
             return response()->json(
                 [
                     'pokemon' => $pokemon->name,
-                    'evolutions' => [], // Retourne un tableau vide pour les évolutions
+                    'evolutions' => [],
                     'message' => 'Aucune évolution trouvée'
                 ]
             );
@@ -80,13 +81,76 @@ class PokemonController extends Controller
         }
     }
 
+    public function chain(Pokemon $pokemon)
+    {
+        // Trouver la base de l'évolution pour le Pokémon donné
+        $currentVarietyId = $pokemon->defaultVariety->id;
+
+        // Trouver la base de la chaîne évolutive
+        do {
+            // Trouver la relation d'évolution où ce Pokémon est la forme évoluée
+            $evolution = PokemonEvolution::where('evolves_to_id', $currentVarietyId)->first();
+
+            // Si une évolution a été trouvée, on remonte vers le parent (la base potentielle)
+            if ($evolution) {
+                $currentVarietyId = $evolution->pokemon_variety_id;
+            }
+        } while ($evolution);
+
+        // Récupérer le Pokémon correspondant à la base
+        $baseVariety = PokemonVariety::with('pokemon')->find($currentVarietyId);
+
+        if (!$baseVariety) {
+            return response()->json(['error' => 'Base not found'], 404);
+        }
+
+        // Collection pour stocker toute la chaîne évolutive
+        $evolutionChain = [];
+        $currentVarietyId = $baseVariety->id;
+
+        // Ajouter la base à la chaîne
+        $evolutionChain[] = $baseVariety;
+
+        // Parcourir toute la chaîne évolutive en commençant par la base
+        do {
+            // Trouver toutes les évolutions depuis ce Pokémon
+            $evolutions = PokemonEvolution::with('evolvesTo.pokemon')
+                ->where('pokemon_variety_id', $currentVarietyId)
+                ->get();
+
+            if ($evolutions->isNotEmpty()) {
+                foreach ($evolutions as $evolution) {
+                    // Ajouter chaque forme évoluée à la chaîne
+                    $evolutionChain[] = $evolution->evolvesTo;
+                }
+
+                // Mettre à jour l'ID actuel pour continuer avec les prochains
+                $currentVarietyId = $evolutions->first()->evolves_to_id;
+            } else {
+                // Arrêter s'il n'y a plus d'évolution
+                $currentVarietyId = null;
+            }
+        } while ($currentVarietyId);
+
+        // Renvoyer les informations de la chaîne évolutive
+        return response()->json([
+            'base_pokemon' => $baseVariety->pokemon->name,
+            'evolution_chain' => $evolutionChain
+        ]);
+    }
+
+
+
+
+
+
     public function Moves(Pokemon $pokemon)
     {
         // Trouver le type par son ID
         $moves = PokemonLearnMove::find($pokemon);
 
         if (!$moves) {
-            return response()->json(['error' => 'Type not found'], 404);
+            return response()->json(['error' => 'Moves not found'], 404);
         }
 
         $moves = DB::table('pokemon_learn_moves')

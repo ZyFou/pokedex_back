@@ -21,6 +21,7 @@ Route::group(['prefix' => 'pokemon'], function () {
     Route::get('/{pokemon}/moves', [PokemonController::class, 'Moves']);
 
     Route::get('/{pokemon}/evolution', [PokemonController::class, 'evolutions']);
+    Route::get('/{pokemon}/chain', [PokemonController::class, 'chain']);
 });
 
 
