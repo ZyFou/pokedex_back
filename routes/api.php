@@ -31,7 +31,6 @@ Route::group(['prefix' => 'type'], function () {
         '{typeId}/infos',
         [TypeController::class, 'infos']
     );
-
     Route::get(
         '{typeId}/weakness',
         [TypeController::class, 'weaknesses']
