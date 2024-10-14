@@ -158,21 +158,29 @@ class PokemonController extends Controller
 
     public function Moves(Pokemon $pokemon)
     {
-        // Trouver le type par son ID
-        $moves = PokemonLearnMove::find($pokemon);
+        // Vérifier si le Pokémon existe
+        $moves = DB::table('pokemon_learn_moves')
+            ->where('pokemon_variety_id', $pokemon->id)
+            ->get();
 
-        if (!$moves) {
+        if ($moves->isEmpty()) {
             return response()->json(['error' => 'Moves not found'], 404);
         }
 
-        $moves = DB::table('pokemon_learn_moves')
-            ->where('pokemon_variety_id', $pokemon['id'])
-            // ->where('game_version_id', 8)
+        // Récupérer la dernière version du jeu où le Pokémon a appris un move
+        $lastGameVersion = DB::table('pokemon_learn_moves')
+            ->where('pokemon_variety_id', $pokemon->id)
+            ->max('game_version_id'); // Récupère la version la plus élevée
+
+        // Obtenir les moves pour cette dernière version
+        $lastMoves = DB::table('pokemon_learn_moves')
+            ->where('pokemon_variety_id', $pokemon->id)
+            ->where('game_version_id', $lastGameVersion)  // Filtrer par la dernière version
             ->get();
 
         return response()->json([
             'informations' => $pokemon,
-            'moves' => $moves
+            'moves' => $lastMoves
         ]);
     }
 }
