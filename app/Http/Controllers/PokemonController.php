@@ -13,11 +13,31 @@ use Illuminate\Http\Request;
 
 class PokemonController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $perPage = $request->input('per_page', 20); // Par défaut 20
         return Pokemon::with(['defaultVariety', 'defaultVariety.sprites', 'defaultVariety.types'])
-            ->paginate(20);
+            ->paginate($perPage);
     }
+
+
+    public function search(Request $request)
+    {
+        $query = $request->input('q');
+
+        if (!$query) {
+            return response()->json([], 200);
+        }
+
+        $pokemons = Pokemon::where('name', 'LIKE', "{$query}%")
+            ->orWhere('id', 'LIKE', "{$query}%")
+            ->limit(20)
+            ->get();
+
+        return response()->json($pokemons, 200);
+    }
+
+
 
     public function show(Pokemon $pokemon)
     {

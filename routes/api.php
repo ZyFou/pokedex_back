@@ -27,6 +27,8 @@ Route::prefix('auth')->group(function () {
 
 Route::group(['prefix' => 'pokemon'], function () {
     Route::get('/', [PokemonController::class, 'index']);
+    Route::get('/pokemon/search', [PokemonController::class, 'search']);
+
     Route::get('/{pokemon}', [PokemonController::class, 'show']);
     Route::get('/{pokemon}/varieties', [PokemonController::class, 'showVarieties']);
 
