@@ -8,9 +8,22 @@ use App\Http\Controllers\PokemonController;
 use App\Http\Controllers\TypeController;
 use App\Models\Ability;
 
-Route::get('/user', action: function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+use App\Http\Controllers\Auth\OAuthController;
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+
+    // Vos autres routes protégées ici...
+});
+
+
+Route::prefix('auth')->group(function () {
+    Route::get('/redirect', [OAuthController::class, 'redirect']);
+    Route::get('/callback', [OAuthController::class, 'callback']);
+    Route::middleware('auth:sanctum')->post('/logout', [OAuthController::class, 'logout']);
+});
 
 Route::group(['prefix' => 'pokemon'], function () {
     Route::get('/', [PokemonController::class, 'index']);
