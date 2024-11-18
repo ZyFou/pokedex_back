@@ -15,15 +15,6 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
-    'providers' => [
-        // ...
-        Laravel\Socialite\SocialiteServiceProvider::class,
-    ],
-    'aliases' => [
-        // ...
-        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
-    ],
-
     /*
     |--------------------------------------------------------------------------
     | Application Environment
